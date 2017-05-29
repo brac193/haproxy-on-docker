@@ -1,0 +1,23 @@
+version: '2'
+services:
+  haproxy:
+    image: haproxy:1.7
+    container_name: haproxy
+    volumes:
+     - ./haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+     - "8080:5000"
+  node1:
+    build: ./node/
+    container_name: app
+    environment:
+    - MESSAGE='First instance'
+    expose:
+     - 8080
+  node2:
+    build: ./node/
+    container_name: app1
+    environment:
+    - MESSAGE='Second instance'
+    expose:
+     - 8080
